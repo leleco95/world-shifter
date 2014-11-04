@@ -295,6 +295,7 @@ function love.keypressed(key)
       player.targetx=1
       player.targety=1
       player.shifts=10+world.diff*7
+      player.ammo=10*world.diff
       remakeWorld()
     end
   end
