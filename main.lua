@@ -176,7 +176,7 @@ function checkBulletCollision()
   for i=1,world.sizex,1 do
     for j=1,world.sizey,1 do
       for k=#bullets.info,1,-1 do
-        if bullets.info[k].px >= (i-1)*32 and bullets.info[k].px <= i*32 and bullets.info[k].py >= (j-1)*32 and bullets.info[k].py <= j*32 and world.map[i][j] == 2 then
+        if bullets.info[k].px >= (i-1)*32 and bullets.info[k].px <= i*32 and bullets.info[k].py >= (j-1)*32 and bullets.info[k].py <= j*32 and (world.map[i][j]%3) == 2 then
           table.remove(bullets.info, k)
           world.map[i][j] = 0
         end
@@ -210,7 +210,7 @@ function love.load()
     frame_timer = 0,
     walk_delay = 0,
     moving = false,
-    shifts = 10+world.diff*7,
+    shifts = 7+world.diff*7,
     fire_timer = 0,
     ammo = 10*world.diff,
   }
@@ -305,9 +305,10 @@ function love.draw()
   love.graphics.setColor(255,255,255)
   for i=1, world.sizex, 1 do
     for j=1, world.sizey, 1 do
-      if (world.map[i][j]%3) ~= 0 then
+      if (world.map[i][j]%3) == 1 then
+        love.graphics.draw(map.image, map.Quads[8], (i-1)*32, (j-1)*32)
+      elseif (world.map[i][j]%3) == 2 then
         love.graphics.draw(map.image, map.Quads[7], (i-1)*32, (j-1)*32)
-        --love.graphics.rectangle("fill", i*32-32, j*32-32, 32, 32)
       end
     end
   end
